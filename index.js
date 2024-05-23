@@ -180,7 +180,7 @@ wss.on('connection', (ws, req) => {
 				}
 				if (roomsrspp[room].length == 0) {
 					if (leftnokori == 0) {
-						roomsrsps[room].forEach((client) => {
+						rooms[room].forEach((client) => {
 							if (client.readyState === WebSocket.OPEN) {
 								client.send(JSON.stringify({ type: 'state', content: 'done' }));
 								client.send(JSON.stringify({ type: 'message', content: '뽑기 완료' }));
