@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getNokori, setItemTeam } from './controllers/itemController.js';
 
 const app = express();
-const port = 4000;
+const port = 4101;
 const server = http.createServer(app);
 // const wss = new WebSocketServer({ server });
 const wss = new WebSocketServer({ noServer: true });
@@ -16,15 +16,15 @@ const wss = new WebSocketServer({ noServer: true });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/session', sessionRouter);
-app.use('/item', itemRouter);
+app.use('/api/session', sessionRouter);
+app.use('/api/item', itemRouter);
 
 server.listen(port, () => {
 	console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
 });
 
 server.on('upgrade', (req, socket, head) => {
-	if (req.url === '/ws') {
+	if (req.url === '/api/ws') {
 		wss.handleUpgrade(req, socket, head, (ws) => {
 			wss.emit('connection', ws, req);
 		});
